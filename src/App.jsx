@@ -77,6 +77,7 @@ function App() {
         id="ADDBUTTON"
         className="flex justify-center fixed z-50 w-full -bottom-[1px] h-[48px] drop-shadow-sm bg-teal-950"
       >
+        <div className='absolute bg-teal-950 rounded-full w-[95px] h-[95px] bottom-[1px] right-[159px] -z-10'></div>
         <button className="relative m-2 font-buttons text-green-500 bg-black px-3 rounded-full text-sm text-wrap w-[82px] h-[82px] bottom-[50px]" onClick={openModal}>
           Add New Media
         </button>

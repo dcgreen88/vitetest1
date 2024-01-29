@@ -31,7 +31,7 @@ export default function Modal({ getNewMedia, close, show }) {
       id="MODAL"
       className={`text-black flex-col fixed overflow-visible p-2 ${
         mediaType ? 'bg-yellow-800' : 'bg-green-800'
-      } w-[360px] bottom-[100px] h-max-[500px]`}
+      } w-[360px] bottom-[112px] h-max-[500px]`}
       open={show === 'flex'}
     >
       <h2 className="text-center mb-2">New Media</h2>
