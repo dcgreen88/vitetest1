@@ -10,6 +10,7 @@ function App() {
   const [masterList, setMasterList] = useState(retrieveLocal); // this state pulls the masterlist from localstorage to be displayed
   const [mediaList, setMediaList] = useState(masterList); // this is a mutable-copy of the masterlist for search/filter functions
   const [showModal, setShowModal] = useState(false); // this is a mutable-copy of the masterlist for search/filter functions
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(masterList)); // When the masterList is edited we store it on the localstorage.
@@ -28,8 +29,17 @@ function App() {
   }
 
   // Functionality that allows me to delete/edit objects in the mediaList
-  function onDelete(idForRemoval) {
-    setMasterList(masterList.filter((movie) => movie.id !== idForRemoval));
+  function deleteIndex(idForRemoval, title) {
+    setShowDeletePrompt({idForRemoval, title});
+  }
+
+  function onDelete() {
+    setMasterList(masterList.filter((movie) => movie.id !== showDeletePrompt.idForRemoval));
+    setShowDeletePrompt(false);
+  }
+
+  function cancelDelete() {
+    setShowDeletePrompt(false);
   }
 
   function onEdit(id, note, rating) {
@@ -51,7 +61,10 @@ function App() {
       <div
         id="SPLASH"
         className={`border-black border-[1px] p-2 fixed z-50 w-full text-center bg-cover bg-[center_268px] font-marker text-2xl h-[48px] text-green-400 drop-shadow-sm`}
-        style={{ backgroundImage: `url(${dcg})`, WebkitTextStroke: '1px black'}}
+        style={{
+          backgroundImage: `url(${dcg})`,
+          WebkitTextStroke: '1px black',
+        }}
       >
         DCGreen Media Reviews
       </div>
@@ -64,11 +77,19 @@ function App() {
             <MediaCard
               media={mediaObject}
               key={index}
-              onDelete={onDelete}
+              onDelete={deleteIndex}
               onEdit={onEdit}
+              disableDelete={showDeletePrompt}
             />
           ))}
       </div>
+      {showDeletePrompt && (
+        <div className="absolute top-[500px] bg-slate-700 w-screen flex-col flex text-center">
+          <p>{`Really Delete ${showDeletePrompt.title || showDeletePrompt.name}?`}</p>
+          <button onClick={onDelete}>Yes</button>
+          <button onClick={cancelDelete}>Cancel</button>
+        </div>
+      )}
       <Modal show={showModal} close={closeModal} getNewMedia={handleNewMedia}>
         <MovieSelector />
       </Modal>
@@ -77,8 +98,11 @@ function App() {
         id="ADDBUTTON"
         className="flex justify-center fixed z-50 w-full -bottom-[1px] h-[48px] drop-shadow-sm bg-teal-950"
       >
-        <div className='absolute bg-teal-950 rounded-full w-[95px] h-[95px] bottom-[1px] right-[159px] -z-10'></div>
-        <button className="relative m-2 font-buttons text-green-500 bg-black px-3 rounded-full text-sm text-wrap w-[82px] h-[82px] bottom-[50px]" onClick={openModal}>
+        <div className="absolute bg-teal-950 rounded-full w-[95px] h-[95px] bottom-[1px] right-[159px] -z-10"></div>
+        <button
+          className="relative m-2 font-buttons text-green-500 bg-black px-3 rounded-full text-sm text-wrap w-[82px] h-[82px] bottom-[50px]"
+          onClick={openModal}
+        >
           Add New Media
         </button>
       </div>
