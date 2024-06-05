@@ -38,7 +38,6 @@ const genreTransform = (number) => {
       return 'Music';
 
     case 9648:
-      9648;
       return 'Mystery';
 
     case 10749:
