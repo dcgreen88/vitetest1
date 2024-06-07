@@ -30,11 +30,13 @@ function App() {
 
   // Functionality that allows me to delete/edit objects in the mediaList
   function deleteIndex(idForRemoval, title) {
-    setShowDeletePrompt({idForRemoval, title});
+    setShowDeletePrompt({ idForRemoval, title });
   }
 
   function onDelete() {
-    setMasterList(masterList.filter((movie) => movie.id !== showDeletePrompt.idForRemoval));
+    setMasterList(
+      masterList.filter((movie) => movie.id !== showDeletePrompt.idForRemoval)
+    );
     setShowDeletePrompt(false);
   }
 
@@ -84,11 +86,28 @@ function App() {
           ))}
       </div>
       {showDeletePrompt && (
-        <div className="absolute top-[500px] bg-slate-700 w-screen flex-col flex text-center">
-          <p>{`Really Delete ${showDeletePrompt.title || showDeletePrompt.name}?`}</p>
-          <button onClick={onDelete}>Yes</button>
-          <button onClick={cancelDelete}>Cancel</button>
-        </div>
+        <>
+          <div id='BLACKBACKGROUND' className="fixed inset-0 bg-black bg-opacity-70 z-10"></div>
+          <div id='DELTEPROMPTCASE' className="absolute bg-red-900 w-screen flex-col flex text-center z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-buttons">
+            <h2 id='DELETETEXT' className='m-2'>{`Really Delete ${
+              showDeletePrompt.title || showDeletePrompt.name
+            }?`}</h2>
+            <div id='BUTTONS' className='flex justify-center space-x-8 m-2 mb-4'>
+              <button
+                onClick={onDelete}
+                className="bg-teal-950 text-green-500 font-buttons rounded p-[2px] px-[6px]"
+              >
+                Yes
+              </button>
+              <button
+                onClick={cancelDelete}
+                className="bg-teal-950 text-red-500 font-buttons rounded p-[2px] px-[6px]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </>
       )}
       <Modal show={showModal} close={closeModal} getNewMedia={handleNewMedia}>
         <MovieSelector />
