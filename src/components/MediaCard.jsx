@@ -131,9 +131,9 @@ export default function MediaCard({
             title || name
           } (${release_date || first_air_date})`}</div>
           <div id="GENRE" className="flex justify-start">
-            {genre_ids.map((genre) => {
+            {genre_ids.filter(Boolean).map((genre, index) => {
               return (
-                <div className="text-[12px] font-semibold mr-2 h-[18px] bg-cyan-950 rounded-full text-white px-1.5 mb-[2px]">
+                <div key={index} className="text-[12px] font-semibold mr-2 h-[18px] bg-cyan-950 rounded-full text-white px-1.5 mb-[2px]">
                   {genre}
                 </div>
               );

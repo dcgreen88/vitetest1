@@ -78,11 +78,13 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
 
   return (
     <>
-      <div id="SEARCH" className="flex flex-col">
+      <div id="SEARCH" className="flex justify-center">
         <input
           ref={searchBarRef}
           id="searchbar"
-          className="m-2"
+          className={`border-teal-950 border-[2px] rounded-md mb-[6px] w-[260px] outline-none pl-[6px] font-buttons ${
+            searchType ? 'bg-yellow-500 focus:bg-yellow-400 placeholder-red-800' : 'bg-teal-700 focus:bg-teal-600 placeholder-teal-400'
+          }`}
           type="text"
           onKeyDown={handleSearch}
           placeholder={searchType ? 'Search TV Shows...' : 'Search Movies...'}
@@ -91,13 +93,16 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
       {poster && poster.length > 0 ? (
         <div
           id="DISPLAY"
-          className={`overflow-auto p-[4px] ${
+          className={`overflow-auto p-[8px] ${
             poster ? 'flex' : 'hidden invisible'
+          } ${
+            searchType ? 'bg-yellow-500' : 'bg-teal-800'
           }`}
         >
           {poster.map(({ poster_path }, index) => (
             <div
-              className="flex-shrink-0 mr-2 relative h-[330px] w-[220px]"
+            id='POSTERS'
+              className="flex-shrink-0 mr-2 relative h-[329px] w-[220px] border border-black"
               key={index}
             >
               <img
@@ -110,18 +115,18 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
               {poster[index].select && (
                 <div
                   id="CONFIRMATION"
-                  className="flex flex-col absolute font-bold bg-slate-500 w-[220px] z-10 bottom-[48px] text-center p-[2px]"
+                  className="flex flex-col absolute text-white bg-black w-[220px] z-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center p-[4px] border-t-[2px] border-b-[2px] border-white"
                 >
                   Select {searchType ? 'TV Show' : 'Movie'}?
                   <div className="flex justify-center">
                     <button
-                      className="ml-2 mr-4"
+                      className="ml-2 mr-6 text-green-500 font-buttons"
                       data-index={index}
                       onClick={selectMedia}
                     >
                       Yes
                     </button>
-                    <button onClick={() => beginSelectMedia(index)}>
+                    <button onClick={() => beginSelectMedia(index)} className='text-red-500 font-buttons'>
                       Cancel
                     </button>
                   </div>
