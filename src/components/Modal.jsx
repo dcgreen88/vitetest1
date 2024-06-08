@@ -26,10 +26,10 @@ export default function Modal({ getNewMedia, close, show }) {
   return (
     <>
       {show === 'flex' && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-51 flex items-center justify-center">
           <dialog
             id="MODAL"
-            className={`text-black z-50 ${
+            className={`text-black z-52 ${
               mediaType ? 'bg-yellow-700' : 'bg-green-900'
             } w-full min-w-[320px] max-w-[360px] max-h-[500px] rounded-lg`}
             open={show === 'flex'}

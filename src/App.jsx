@@ -88,8 +88,8 @@ function App() {
       </div>
       {showDeletePrompt && (
         <>
-          <div id='BLACKBACKGROUND' className="fixed inset-0 bg-black bg-opacity-70 z-10"></div>
-          <div id='DELTEPROMPTCASE' className="absolute bg-red-900 w-screen flex-col flex text-center z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-buttons">
+          <div id='BLACKBACKGROUND' className="fixed inset-0 bg-black bg-opacity-70 z-60"></div>
+          <div id='DELTEPROMPTCASE' className="absolute bg-red-900 w-screen flex-col flex text-center z-54 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-buttons">
             <h2 id='DELETETEXT' className='m-2'>{`Really Delete ${
               showDeletePrompt.title || showDeletePrompt.name // This ternary operator is used to account for the fact that the API uses 'name' instead of 'title for tv shows
             }?`}</h2>
@@ -116,12 +116,13 @@ function App() {
 
       <div
         id="BOTTOMBUTTONS"
-        className="flex justify-center fixed z-50 w-full  h-[48px] drop-shadow-sm bg-teal-950 bottom-[0px]"
+        className="flex justify-center fixed z-50 w-full  h-[48px] drop-shadow-sm bg-teal-950 bottom-[0px] border-b border-teal-950"
       >
-        <div id='BUTTONCIRCLE' className="bg-teal-950 rounded-full w-[95px] h-[95px] z-60 absolute bottom-[0px]"></div>
+        <div id='BUTTONCIRCLE' className="bg-teal-950 rounded-full w-[95px] h-[95px] z-51 absolute bottom-[0px]"></div>
         <button
-          className="m-2 font-buttons text-green-500 bg-black px-3 rounded-full text-sm text-wrap w-[82px] h-[82px] z-70 absolute bottom-[0px]"
+          className="m-2 font-buttons text-green-500 bg-black px-3 rounded-full text-sm text-wrap w-[82px] h-[82px] z-52 absolute bottom-[0px]"
           onClick={openModal}
+          style={{ pointerEvents: showDeletePrompt ? 'none' : 'auto' }} // This ternary operator is used to prevent the user from opening the modal while it is already open
         >
           Add New Media
         </button>
