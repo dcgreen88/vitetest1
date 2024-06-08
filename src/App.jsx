@@ -116,7 +116,7 @@ function App() {
 
       <div
         id="BOTTOMBUTTONS"
-        className="flex justify-center fixed z-50 w-full  h-[48px] drop-shadow-sm bg-teal-950 border-t bottom-[0px]"
+        className="flex justify-center fixed z-50 w-full  h-[48px] drop-shadow-sm bg-teal-950 bottom-[0px]"
       >
         <div id='BUTTONCIRCLE' className="bg-teal-950 rounded-full w-[95px] h-[95px] z-60 absolute bottom-[0px]"></div>
         <button
