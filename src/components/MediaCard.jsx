@@ -13,7 +13,7 @@ export default function MediaCard({
     note = '',
     rating = '',
   },
-  mediaKey,
+  mediaKey, // This is the index of the mediaElement in the masterList, but since it's not used anywhere its effectively a dummy variable to absorb the key prop
   onDelete,
   onEdit,
   disableDelete
@@ -22,7 +22,7 @@ export default function MediaCard({
   const [mediaNote, setMediaNote] = useState(note, '');
   const [mediaRating, setMediaRating] = useState(rating, '');
   const [editing, setEditing] = useState(false);
-  const [noteOpacity, setNoteOpacity] = useState(false);
+  const [noteOpacity, setNoteOpacity] = useState(false); //true and false are set to specific oppacity values in the note styles
 
   // Functionality for buttons to pass mediaElement index to App for delete/edit
   function onDeleteClick() {
@@ -79,7 +79,7 @@ export default function MediaCard({
                 ? 'opacity-80 transition-opacity duration-500 ease-in-out'
                 : 'opacity-0 transition-opacity duration-500'
             }`}
-            onClick={toggleNote}
+            onClick={toggleNote} // the reason toggleNote is on both the poster image and the note is so when the note is shorter than the image, or covers the whole thing, the user can still click anywhere to close it
           >
             {note}
           </div>
@@ -162,5 +162,3 @@ export default function MediaCard({
     </div>
   );
 }
-
-// opacity-80 transition-opacity duration-500 ease-in-out

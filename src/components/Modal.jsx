@@ -3,16 +3,15 @@ import MovieSelector from './MovieSelector';
 import genreTransform from './genres';
 
 export default function Modal({ getNewMedia, close, show }) {
-  const [mediaType, setMediaType] = useState(false);
+  const [mediaType, setMediaType] = useState(false); // false for movie, true for tv show. true and false used so could add disable property to buttons so user can't select the same media type twice
 
   function handleSelectMediaType() {
-    setMediaType((prevState) => !prevState);
-    // <----- function to reset
+    setMediaType((prevState) => !prevState); //toggle between movie and tv show
   }
 
   function handleClose() {
     close();
-    setMediaType(false);
+    setMediaType(false); //ensure the modal opens on the movie selector
   }
 
   function forwardNewMediaObject(media) {
