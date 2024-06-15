@@ -101,7 +101,7 @@ export default function MediaCard({
       >
         <div
           id="RATINGCONTAINER"
-          className="flex relative min-w-[44px] max-w-[44px]"
+          className="flex relative min-w-[44px] max-w-[44px] justify-center"
         >
           <img
             src={star}
@@ -109,7 +109,7 @@ export default function MediaCard({
           />
           <div
             id="RATING"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold"
+            className="absolute font-semibold top-[22px]"
           >
             {rating}
           </div>
