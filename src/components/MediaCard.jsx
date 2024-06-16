@@ -6,9 +6,7 @@ export default function MediaCard({
     id = '',
     poster_path = '',
     title = '',
-    name = '',
     release_date = '',
-    first_air_date = '',
     genre_ids = [],
     note = '',
     rating = '',
@@ -16,7 +14,7 @@ export default function MediaCard({
   mediaKey, // This is the index of the mediaElement in the masterList, but since it's not used anywhere its effectively a dummy variable to absorb the key prop
   onDelete,
   onEdit,
-  disableDelete
+  disableDelete,
 }) {
   // State to record the new note and rating
   const [mediaNote, setMediaNote] = useState(note, '');
@@ -26,9 +24,8 @@ export default function MediaCard({
 
   // Functionality for buttons to pass mediaElement index to App for delete/edit
   function onDeleteClick() {
-    onDelete(id, title || name);
+    onDelete(id, title);
   }
-
 
   function onEditClick() {
     if (editing) {
@@ -47,11 +44,10 @@ export default function MediaCard({
   }
 
   // I need a variable to control the size of the title
+  const titleCount = title.length + release_date.length;
   const titles =
-    title?.length + release_date?.length > 23 ||
-    name?.length + first_air_date?.length > 23
-      ? title?.length + release_date?.length > 50 ||
-        name?.length + first_air_date?.length > 50
+    titleCount > 23
+      ? titleCount > 50
         ? 'text-[12px]'
         : 'text-[14px]'
       : 'text-[17px]';
@@ -107,10 +103,7 @@ export default function MediaCard({
             src={star}
             className="relative min-w-[44px] max-w-[44px] object-contain"
           />
-          <div
-            id="RATING"
-            className="absolute font-semibold top-[22px]"
-          >
+          <div id="RATING" className="absolute font-semibold top-[22px]">
             {rating}
           </div>
           {editing && (
@@ -127,13 +120,16 @@ export default function MediaCard({
           )}
         </div>
         <div id="TITLE" className="flex flex-col p-[2px] grow">
-          <div className={`${titles} flex grow font-semibold`}>{`${
-            title || name
-          } (${release_date || first_air_date})`}</div>
+          <div
+            className={`${titles} flex grow font-semibold`}
+          >{`${title} (${release_date})`}</div>
           <div id="GENRE" className="flex justify-start">
             {genre_ids.filter(Boolean).map((genre, index) => {
               return (
-                <div key={index} className="text-[12px] font-semibold mr-2 h-[18px] bg-cyan-950 rounded-full text-white px-1.5 mb-[2px]">
+                <div
+                  key={index}
+                  className="text-[12px] font-semibold mr-2 h-[18px] bg-cyan-950 rounded-full text-white px-1.5 mb-[2px]"
+                >
                   {genre}
                 </div>
               );

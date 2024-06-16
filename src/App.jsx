@@ -15,7 +15,6 @@ function App() {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false); // this is used to toggle the delete prompt on/off
   const [searchList, setSearchList] = useState('');
 
-
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(masterList)); // When the masterList is edited we store it on the localstorage.
     setMediaList(masterList);
@@ -31,7 +30,7 @@ function App() {
     closeModal();
   }
 
-  // Functionality that allows me to delete/edit objects in the mediaList
+  // Functionality that allows me to delete/edit objects in the masterList
   function deleteIndex(idForRemoval, title) {
     setShowDeletePrompt({ idForRemoval, title });
   }
@@ -62,13 +61,20 @@ function App() {
   }
   //Search functionality for mediaList
   function searchFilter(searchTerm) {
-    const masterListCopy = [...masterList];
-    const filteredList = masterListCopy.filter((movie) => {
-      const title = movie.title
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      return title;
+    const searchLower = searchTerm.toLowerCase();
+
+    const filteredList = mediaList.filter((movie) => {
+      const title = movie.title.toLowerCase();
+
+      const matchesTitle = title ? title.includes(searchLower) : false;
+
+      return matchesTitle;
     });
+
+    if (filteredList.length === 0) {
+      return;
+    }
+
     setMediaList(filteredList);
     setSearchList(filteredList);
   }
@@ -77,119 +83,54 @@ function App() {
     setSearchList('');
   }
   // Filter functionality for mediaList
+  const listToSort =
+    searchList && searchList.length > 0 ? searchList : mediaList;
+
   function dateList() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const datedMovies = masterListCopy.sort((a, b) => a.id - b.id);
-      setMediaList(datedMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const datedMovies = searchListCopy.sort((a, b) => a.id - b.id);
-      setMediaList(datedMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => a.id - b.id);
+    setMediaList(sortedList);
   }
   function dateListDown() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const datedMovies = masterListCopy.sort((a, b) => b.id - a.id);
-      setMediaList(datedMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const datedMovies = searchListCopy.sort((a, b) => b.id - a.id);
-      setMediaList(datedMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => b.id - a.id);
+    setMediaList(sortedList);
   }
   function alphabetList() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const alphabeticalMovies = masterListCopy.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-  
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0;
-      });
-      setMediaList(alphabeticalMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const alphabeticalMovies = searchListCopy.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-  
-        if (titleA < titleB) {
-          return -1;
-        }
-        if (titleA > titleB) {
-          return 1;
-        }
-        return 0;
-      });
-      setMediaList(alphabeticalMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
+
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+      return 0;
+    });
+    setMediaList(sortedList);
   }
   function alphabetListDown() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const alphabeticalMovies = masterListCopy.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-  
-        if (titleA < titleB) {
-          return 1;
-        }
-        if (titleA > titleB) {
-          return -1;
-        }
-        return 0;
-      });
-      setMediaList(alphabeticalMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const alphabeticalMovies = searchListCopy.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-  
-        if (titleA < titleB) {
-          return 1;
-        }
-        if (titleA > titleB) {
-          return -1;
-        }
-        return 0;
-      });
-      setMediaList(alphabeticalMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
+
+      if (titleA < titleB) {
+        return 1;
+      }
+      if (titleA > titleB) {
+        return -1;
+      }
+      return 0;
+    });
+    setMediaList(sortedList);
   }
   function ratingList() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const numericalMovies = masterListCopy.sort(
-        (a, b) => b.rating - a.rating
-      );
-      setMediaList(numericalMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const numericalMovies = searchListCopy.sort((a, b) => a.id - b.id);
-      setMediaList(numericalMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => b.rating - a.rating);
+    setMediaList(sortedList);
   }
   function ratingListDown() {
-    if (!searchList) {
-      const masterListCopy = [...masterList];
-      const numericalMovies = masterListCopy.sort(
-        (a, b) => a.rating - b.rating
-      );
-      setMediaList(numericalMovies);
-    } else {
-      const searchListCopy = [...searchList];
-      const numericalMovies = searchListCopy.sort((a, b) => b.id - a.id);
-      setMediaList(numericalMovies);
-    }
+    const sortedList = [...listToSort].sort((a, b) => a.rating - b.rating);
+    setMediaList(sortedList);
   }
   //Filter Switch Logic
   function filterHandler(filterOption) {
@@ -278,7 +219,7 @@ function App() {
         id="BOTTOMBUTTONS"
         className="fixed z-50 w-full h-[48px] bg-teal-950 bottom-[0px] border-b border-teal-950 flex items-center"
       >
-        <SearchBar searchFilter={searchFilter} resetList={resetList}/>
+        <SearchBar searchFilter={searchFilter} resetList={resetList} />
 
         <div
           id="BUTTONCIRCLE"
@@ -293,7 +234,7 @@ function App() {
           </button>
         </div>
 
-        <Filter filterHandler={filterHandler}/>
+        <Filter filterHandler={filterHandler} />
       </div>
     </div>
   );

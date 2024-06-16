@@ -33,7 +33,7 @@ export default function SearchBar({searchFilter, resetList}) {
         value={searchTerm}
         onChange={inputHandler}
         onKeyPress={searchHandler}
-        className='w-full border-[1px] rounded-full min-w-[88px] max-w-[130px] border-green-500 outline-none pl-[6px] font-buttons bg-black focus:bg-gray-800 placeholder-green-500 pr-[46px] sm:max-w-[240px]'
+        className='w-full border-[1px] rounded-full min-w-[88px] max-w-[130px] border-green-500 outline-none pl-[6px] font-buttons bg-black focus:bg-gray-700 placeholder-green-500 pr-[46px] sm:max-w-[240px] text-green-500'
       />
       {searchTerm && (
       <img

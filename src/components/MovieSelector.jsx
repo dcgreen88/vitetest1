@@ -47,10 +47,8 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
         const posterURL = resData.results.map((result) => ({
           genre_ids: result.genre_ids,
           poster_path: result.poster_path,
-          release_date: result.release_date,
-          first_air_date: result.first_air_date,
-          title: result.title || '',
-          name: result.name,
+          release_date: result.release_date || result.first_air_date,
+          title: result.title || result.name,
           select: false,
         })); // this creates a new array of each result's poster_path.
         setPoster(posterURL); // this updates the poster array to the searched API results
@@ -83,7 +81,9 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
           ref={searchBarRef}
           id="searchbar"
           className={`border-teal-950 border-[2px] rounded-md mb-[6px] w-[260px] outline-none pl-[6px] font-buttons ${
-            searchType ? 'bg-yellow-500 focus:bg-yellow-400 placeholder-red-800' : 'bg-teal-700 focus:bg-teal-600 placeholder-teal-400'
+            searchType
+              ? 'bg-yellow-500 focus:bg-yellow-400 placeholder-red-800'
+              : 'bg-teal-700 focus:bg-teal-600 placeholder-teal-400'
           }`}
           type="text"
           onKeyDown={handleSearch}
@@ -95,13 +95,11 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
           id="DISPLAY"
           className={`overflow-auto p-[8px] ${
             poster ? 'flex' : 'hidden invisible'
-          } ${
-            searchType ? 'bg-yellow-500' : 'bg-teal-800'
-          }`}
+          } ${searchType ? 'bg-yellow-500' : 'bg-teal-800'}`}
         >
           {poster.map(({ poster_path }, index) => (
             <div
-            id='POSTERS'
+              id="POSTERS"
               className="flex-shrink-0 mr-2 relative h-[329px] w-[220px] border border-black"
               key={index}
             >
@@ -126,7 +124,10 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
                     >
                       Yes
                     </button>
-                    <button onClick={() => beginSelectMedia(index)} className='text-red-500 font-buttons'>
+                    <button
+                      onClick={() => beginSelectMedia(index)}
+                      className="text-red-500 font-buttons"
+                    >
                       Cancel
                     </button>
                   </div>

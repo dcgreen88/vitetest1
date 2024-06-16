@@ -67,7 +67,7 @@ export default function Filter({filterHandler}) {
         </div>
         <select
           id="filter-menu"
-          value={filter}
+          value={filter ? filter : ''}
           onChange={onChangeHandler}
           className="w-full min-w-[58px] mx-[4px] flex-auto font-buttons bg-black border-[1px] border-green-500 outline-none  text-green-500 max-w-[78px] sm:max-w-[132px] sm:mx-[8px]"
         >
