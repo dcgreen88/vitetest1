@@ -84,7 +84,7 @@ function App() {
   }
   // Filter functionality for mediaList
   const listToSort =
-    searchList && searchList.length > 0 ? searchList : mediaList;
+    searchList && searchList.length > 0 ? searchList : masterList;
 
   function dateList() {
     const sortedList = [...listToSort].sort((a, b) => a.id - b.id);
@@ -134,17 +134,14 @@ function App() {
   }
 
   function onlyMovie() {
-    const exclusiveList = searchList && searchList.length > 0 ? searchList : masterList;
-    
-    const sortedList = exclusiveList.filter((movie) =>
+  
+    const sortedList = listToSort.filter((movie) =>
       movie.type.includes('movie')
     );
     setMediaList(sortedList);
   }
   function onlyTv() {
-    const exclusiveList = searchList && searchList.length > 0 ? searchList : masterList;
-
-    const sortedList = exclusiveList.filter((movie) => movie.type.includes('tv'));
+    const sortedList = listToSort.filter((movie) => movie.type.includes('tv'));
     setMediaList(sortedList);
   }
   //Filter Switch Logic
@@ -208,8 +205,7 @@ function App() {
             className="absolute bg-red-900 w-screen flex-col flex text-center z-54 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-buttons"
           >
             <h2 id="DELETETEXT" className="m-2">{`Really Delete ${
-              showDeletePrompt.title || showDeletePrompt.name // This ternary operator is used to account for the fact that the API uses 'name' instead of 'title for tv shows
-            }?`}</h2>
+              showDeletePrompt.title}?`}</h2>
             <div
               id="BUTTONS"
               className="flex justify-center space-x-8 m-2 mb-4"
