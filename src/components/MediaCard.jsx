@@ -10,6 +10,7 @@ export default function MediaCard({
     genre_ids = [],
     note = '',
     rating = '',
+    type= '',
   },
   mediaKey, // This is the index of the mediaElement in the masterList, but since it's not used anywhere its effectively a dummy variable to absorb the key prop
   onDelete,

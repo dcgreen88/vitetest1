@@ -132,6 +132,21 @@ function App() {
     const sortedList = [...listToSort].sort((a, b) => a.rating - b.rating);
     setMediaList(sortedList);
   }
+
+  function onlyMovie() {
+    const exclusiveList = searchList && searchList.length > 0 ? searchList : masterList;
+    
+    const sortedList = exclusiveList.filter((movie) =>
+      movie.type.includes('movie')
+    );
+    setMediaList(sortedList);
+  }
+  function onlyTv() {
+    const exclusiveList = searchList && searchList.length > 0 ? searchList : masterList;
+
+    const sortedList = exclusiveList.filter((movie) => movie.type.includes('tv'));
+    setMediaList(sortedList);
+  }
   //Filter Switch Logic
   function filterHandler(filterOption) {
     switch (filterOption) {
@@ -147,6 +162,10 @@ function App() {
         return alphabetListDown();
       case 'RatingDown':
         return ratingListDown();
+      case 'onlyMovie':
+        return onlyMovie();
+      case 'onlyTv':
+        return onlyTv();
     }
   }
   // END OF MASTERLIST CONTROLS

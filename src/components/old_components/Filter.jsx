@@ -5,9 +5,11 @@ import alpA from '../../assets/old_assets/alp-sort-a.png';
 import alpZ from '../../assets/old_assets/alp-sort-z.png';
 import numHigh from '../../assets/old_assets/num-sort-high.png';
 import numLow from '../../assets/old_assets/num-sort-low.png';
+import mov from '../../assets/old_assets/mov.png';
+import tv from '../../assets/old_assets/tv.png';
 import { useState } from 'react';
 
-export default function Filter({filterHandler}) {
+export default function Filter({ filterHandler }) {
   const [filter, setFilter] = useState('Date');
   const [icon, setIcon] = useState(sortDown);
 
@@ -18,6 +20,8 @@ export default function Filter({filterHandler}) {
       setIcon(sortDown);
     } else if (event.target.value === 'Alphabetical') {
       setIcon(alpZ);
+    } else if (event.target.value === 'onlyMovie') {
+      setIcon(tv);
     } else {
       setIcon(numLow);
     }
@@ -39,6 +43,14 @@ export default function Filter({filterHandler}) {
       } else {
         setIcon(alpA);
         filterHandler('AlphabeticalDown');
+      }
+    } else if (filter === 'onlyMovie') {
+      if (icon === mov) {
+        setIcon(tv);
+        filterHandler('onlyMovie');
+      } else {
+        setIcon(mov);
+        filterHandler('onlyTv');
       }
     } else {
       if (icon === numHigh) {
@@ -80,14 +92,17 @@ export default function Filter({filterHandler}) {
           <option className="menu-option" value="Rating">
             Rating
           </option>
+          <option className="menu-option" value="onlyMovie">
+            Movie or TV
+          </option>
         </select>
-        <button id="sorting-button" className="bg-green-500 rounded-full">
+        <button id="sorting-button" className="bg-green-500 rounded-full w-6 h-6 flex justify-center items-center">
           <img
             id="sorting-icons"
             alt="sorting-icons"
             src={icon}
             onClick={iconChangeHandler}
-            className="w-6 h-6"
+            className={`${icon === mov || icon === tv ? 'w-4 h-4' : 'w-5 h-5'}`}
           />
         </button>
       </div>

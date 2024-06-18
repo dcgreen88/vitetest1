@@ -49,6 +49,7 @@ export default function MovieSelector({ searchType, getMediaObject, close }) {
           poster_path: result.poster_path,
           release_date: result.release_date || result.first_air_date,
           title: result.title || result.name,
+          type: searchType ? 'tv' : 'movie',
           select: false,
         })); // this creates a new array of each result's poster_path.
         setPoster(posterURL); // this updates the poster array to the searched API results
